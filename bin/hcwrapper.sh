@@ -56,7 +56,7 @@ initialize_variables () {
   credsfile="$etcdir/$scriptname.cred.cfg"	&& export credsfile
 
   timerange=${rangearg:-"31"}			&& export timerange	
-  sleeptime=${sleeparg:-"15"}			&& export sleeptime
+  sleeptime=${sleeparg:-"30"}			&& export sleeptime
   targetarg=${targetarg:-""}			&& export targetarg
 
   verboseflag=${verboseflag:-"false"}		&& export verboseflag
@@ -87,7 +87,6 @@ execute_checks () {
 
           [ $verboseflag = "true" ] && echo "processing ... $tagname ... $myaws ... $orgid ..."
           $cscmd relative "$myaws" "$orgid" "$xlsdir" "${timerange}" > "$logfile" 2>&1 &
-
           [ $verboseflag = "true" ] && echo "... sleeping $sleeptime ..." 
           sleep "$sleeptime"
 
