@@ -36,6 +36,7 @@ initialize_variables () {
   base=$( ls -Ld $PWD )				&& export base
 
   scriptname="${0%.*}"				&& export scriptname
+  scripttag=$( basename $scriptname )		&& export scripttag
   cmddir=$( dirname $scriptname )		&& export cmddir
   bindir=$( cd $cmddir ; pwd -P . )		&& export bindir
   etcdir=$( cd $bindir/../etc/. ; pwd -P . )	&& export etcdir
@@ -46,14 +47,15 @@ initialize_variables () {
 
   cscmd="/Applications/CS-Toolkit.app/Contents/Resources/app/cs-healthcheck/cs-healthcheck"
   export cscmd
+
   outputdir="/Users/$USER/Downloads/HealthCheckOutput"
   export outputdir
 
   xlsdir="$outputdir/$datestamp/xls"		&& export xlsdir
   logdir="$outputdir/$datestamp/log" 		&& export logdir
 
-  targetcfg="$cfgdir/$scriptname.orgs.cfg"	&& export targetcfg
-  credsfile="$etcdir/$scriptname.cred.cfg"	&& export credsfile
+  targetcfg="$cfgdir/$scripttag.orgs.cfg"	&& export targetcfg
+  credsfile="$etcdir/$scripttag.cred.cfg"	&& export credsfile
 
   timerange=${rangearg:-"31"}			&& export timerange	
   sleeptime=${sleeparg:-"30"}			&& export sleeptime
