@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ###
-### SCRIPTNAME [ options ] a wrapper for SumoLogic Customer Service health checks
+### SCRIPTNAME [ options ] a wrapper for Sumo Logic Customer Service health checks
 ###
 ###	-h | --help		display this message and exit
 ###	-v | --verbose		provide extra comments for verbose output

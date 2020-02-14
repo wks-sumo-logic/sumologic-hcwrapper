@@ -1,5 +1,5 @@
-SumoLogic Health Check Wrapper
-==============================
+Sumo Logic Health Check Wrapper
+===============================
 
 This is designed to allow a Customer Service to run Health Checks for a client base
 
@@ -17,17 +17,24 @@ Currently setup for MacIntosh, the directories can be changed to suite
     
     3. Clone this repo using the following command:
     
-       git clone git@github.com:wks-sumo-logic/sumologic-hcwrapper.git
+       git git@github.com:wks-sumo-logic/sumologic-checkup.git
 
-       This will create a new folder sumologic-hcwrapper
+       This will create a new folder sumologic-checkup
     
-    6. Change into the folder. Type the following to install all the package dependencies 
-       Adjust the configuration file to put in credentials and web
+    6. Change into the cfg folder to specify all of the organizations you want too check
+
+       <Organizational-Identifier>	<Deployment-Site>	<Client-Name>
+       0000000000004608			tky			wayne_sumologic_sandbox
+	
+    7. Change into the etc directory and add you specific credentials if you wish
         
+NOTE: This will place the output of the checks and their logs into $HOME/Downloads/HealthCheckOutput
+      The script is designed to be run several times, and capture logs and output to compare
+
 Dependencies
 ============
 
-This script will need an access key and id, you can generate them on the Sumologic support 
+This script will need an access key and id, you can generate them on the Sumo Logic support 
 site and then place those into the config file located in the etc directory.
 
 Script Names and Purposes
@@ -35,7 +42,7 @@ Script Names and Purposes
 
 Scripts and Functions:
 
-    1. hcwrapper.sh - This is the main script. you can run this with -h to see options
+    1. checkup.sh - This is the main script. you can run this with -h to see options
                       The defaults will walk through all of the clients listed in the config file
 
 To Do List:
@@ -66,4 +73,3 @@ Support
 
 Feel free to e-mail me with issues to: wschmidt@sumologic.com
 I will provide "best effort" fixes and extend the scripts.
-/Users/wschmidt/Downloads/sumologictoolbox-master/Pipfile
