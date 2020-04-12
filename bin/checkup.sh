@@ -8,7 +8,8 @@
 ###	-r | --range		specify a range of time to look at [ default 31 days ]
 ###	-s | --sleep		specify a default time to sleep after each execution
 ###	-t | --target		specify a target system to look for
-###	-c | --config		specify a config other than the default to use
+###	-o | --orgsfile		specify a organization config other than the default to use
+###	-c | --credfile		specify a credential config other than the default to use
 ###
 ### The script is run from: BASEDIR
 ### The script will cache files in the following directories:
@@ -39,8 +40,11 @@ initialize_variables () {
   scripttag=$( basename $scriptname )		&& export scripttag
   cmddir=$( dirname $scriptname )		&& export cmddir
   bindir=$( cd $cmddir ; pwd -P . )		&& export bindir
-  etcdir=$( cd $bindir/../etc/. ; pwd -P . )	&& export etcdir
-  cfgdir=$( cd $bindir/../cfg/. ; pwd -P . )	&& export cfgdir
+
+  basedir=$( dirname $bindir )
+
+  etcdir="$basedir/etc"				&& export etcdir
+  cfgdir="$basedir/cfg" 			&& export cfgdir
 
   datestamp=$(date '+%Y%m%d')          		&& export datestamp
   timestamp=$(date '+%H%M%S')          		&& export timestamp
@@ -55,7 +59,9 @@ initialize_variables () {
   logdir="$outputdir/$datestamp/log" 		&& export logdir
 
   targetcfg="$cfgdir/$scripttag.orgs.cfg"	&& export targetcfg
+  [ -f $orgscfgarg ] 				&& targetcfg=$orgscfgarg
   credsfile="$etcdir/$scripttag.cred.cfg"	&& export credsfile
+  [ -f $credcfgarg ] 				&& credsfile=$credcfgarg
 
   timerange=${rangearg:-"31"}			&& export timerange	
   sleeptime=${sleeparg:-"30"}			&& export sleeptime
@@ -108,7 +114,10 @@ main_logic () {
 
 }
   
-while getopts "hvdo:r:s:t:c:" options;
+orgscfgarg="DEFAULTFILE"
+credcfgarg="DEFAULTFILE"
+
+while getopts "hvdo:r:s:t:o:c:" options;
 do
   case "${options}" in
     h) display_help ; exit 0 ;;
@@ -117,6 +126,8 @@ do
     r) rangearg=$OPTARG     ; export rangearg ;;
     s) sleeparg=$OPTARG     ; export sleeparg ;;
     t) targetarg=$OPTARG    ; export targetarg ;;
+    o) orgscfgarg=$OPTARG   ; export orgscfgarg ;;
+    c) credcfgarg=$OPTARG   ; export credcfgarg ;;
     *) display_help ; exit 0 ;;
   esac
 done
